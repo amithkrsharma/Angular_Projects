@@ -1,0 +1,79 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="content center-block">
+            <div class="content-header">
+                <h3 class="text-center text-primary">Employee Registration</h3>
+                <hr>
+            </div>
+                <form #registerform = "ngForm" (ngSubmit) = "addUserDetails(registerform.value, registerform.valid)">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="fullname" placeholder="Full name"  
+                                    [ngModel]="employee.fullname" required minlength="4" 
+                                    maxlength="25" #fullname="ngModel">
+                                <small [hidden]="fullname.valid || (fullname.pristine && !registerform.submitted)" class="text-danger">
+                                    Fullname is required (minimum 4 characters).
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="emailfield" placeholder="Email" 
+                                    [ngModel]="employee.email" required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+                                <small [hidden]="email.valid || (email.pristine && !registerform.submitted)" class="text-danger">
+                                    Email is required and format should be valid.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="phonenumber" placeholder="Phone No." 
+                                    [ngModel] = "employee.phonenumber" required #phonenumber="ngModel" pattern="^((\\+91-?)|0)?[0-9]{10}$">
+                                <small [hidden]="phonenumber.valid || (phonenumber.pristine && !registerform.submitted)" class="text-danger">
+                                    Phone Number is required (minimum 10 numbers).
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <input type="password" placeholder="Password" name="password" class="form-control" 
+                                    [ngModel]="employee.password" required confirmEqualValidator="confirmpassword" reverse="true" 
+                                    #password="ngModel">
+                                <small [hidden]="password.valid || (password.pristine && !registerform.submitted)" class="text-danger">
+                                    Password is required
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <input type="password" placeholder="Confirm Password" name="confirmpassword" class="form-control" 
+                                    [ngModel]="employee.confirmpassword" 
+                                    required confirmEqualValidator="password" reverse="false" #confirmpassword="ngModel">
+                                <small [hidden]="confirmpassword.valid || (confirmpassword.pristine && !registerform.submitted)" class="text-danger">
+                                    Password mismatch
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                            <button class="btn btn-primary btn-block"> Submit </button>
+                        </div>
+                   </div>
+                   <div class="m-2 card-header" *ngIf="registerform">
+                    <div>Registration details:</div>
+                    <pre>{{registerform.value | json}}</pre>
+                   </div>
+            </form>
+        </div>
+    </div>
+</div>
